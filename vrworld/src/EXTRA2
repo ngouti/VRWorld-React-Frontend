@@ -6,6 +6,7 @@ export default class UserProfile extends Component {
 
     
     state = {
+        user: window.location.pathname,
         images: [],
         favorites: [],
         currentImage: null,
@@ -24,11 +25,16 @@ export default class UserProfile extends Component {
         .then(res => this.setState({
             images: res
         }))
-       .then(this.profilePicFetch)
+        .then(this.parseURL)
+        .then(this.profilePicFetch)
         
     }
 
-   
+    parseURL = () => {
+        this.setState({
+            user: this.state.user.split('/')[2]
+        })
+    }
 
     resetState = () => {
         fetch(`http://localhost:3000/images`, {
@@ -46,6 +52,7 @@ export default class UserProfile extends Component {
     }
 
     profilePicFetch = () => {
+        if(window.location.pathname === `users/${this.props.currentUser.id}/UserProfile`)
         fetch(`http://localhost:3000/users/${this.props.currentUser.id}`, {
             'method': 'GET',
             'headers': {
@@ -57,7 +64,19 @@ export default class UserProfile extends Component {
         .then(res => this.setState({
             profile_url: res.profile_url
         }))
-    
+        else {
+            fetch(`http://localhost:3000/users/${this.state.user}`, {
+                'method': 'GET',
+                'headers': {
+                  'Authorization': `Bearer ${this.props.token}`
+                }
+              })
+           
+            .then(res => res.json())
+            .then(res => this.setState({
+                profile_url: res.profile_url
+            }))
+        }
         
     }
 
@@ -147,9 +166,14 @@ export default class UserProfile extends Component {
     console.log("HELLO", this.state.user, this.props.currentUser.id)
         return (
             <div >
+                {this.state.user == this.props.currentUser.id ?
                
                 <PicturesContainer state={this.state} uploadWidget={this.uploadWidget} editWidget={this.editWidget} currentUser={this.props.currentUser} vrmode={this.vrmode} active={true}/>
+                :
+                <PicturesContainer state={this.state} currentUser={this.user} vrmode={this.vrmode} active={false}/>
+                }
                
+                
          </div>
         );
     }

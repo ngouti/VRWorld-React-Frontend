@@ -65,7 +65,8 @@ import './friends.css'
         }
 
         goToFriendsPage = (user) => {
-            this.props.history.push(`/users/${user.id}/UserProfile`);
+            console.log(user)
+            this.props.history.push(`/users/${user.id}/FriendProfile`);
         }
 
         removeFollower = (friend) => {
@@ -115,7 +116,9 @@ import './friends.css'
                         <Col sm="6">
                             <Card style={{textAlign: "center"}} body >
                             <CardImg top width="100%" src={user.profile_url} alt="Card image cap" />
-                            <CardTitle onClick={this.goToFriendsPage}>{user.name}</CardTitle>
+                            <CardTitle onClick={() => this.goToFriendsPage(user)}>
+                            <span>{user.name}</span>
+                            </CardTitle>
                             <Button  onClick={(e) => this.addFollower(user)}>Follow</Button>
                             </Card>
                         </Col>

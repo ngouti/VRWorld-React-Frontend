@@ -51,7 +51,7 @@ export default class NavBar extends React.Component {
 
                     <NavItem>
                       <NavLink>
-                        <Link style={{color: 'white'}} to={`/users/${this.props.currentUser.id}`}>{this.props.currentUser.name}</Link> 
+                        <Link style={{color: 'white'}} to={`/users/${this.props.currentUser.id}/UserProfile`}>{this.props.currentUser.name}</Link> 
                       </NavLink>
                     </NavItem>
                     <div onClick={ this.props.logout }>

@@ -11,6 +11,7 @@ import NavBar from './NavBar'
 import Home from './Home'
 import Images from './Images'
 import Friends from './Friends'
+import FriendProfile from './FriendProfile'
 
 class App extends Component {
 
@@ -89,7 +90,8 @@ class App extends Component {
               <Route path="/signup" render={ props => <SignUp {...props} onSignUp={this.setCurrentUser} />}/>
               <Route path="/friends" render={ props => <Friends {...props} token={this.state.token} currentUser={this.state.user} />}/>
 
-              <Route path="/users/:id" component={props => <UserProfile {...props} token={this.state.token} setCurrentUser={this.login} currentUser={this.state.user}/>} />
+              <Route path="/users/:id/UserProfile" component={props => <UserProfile {...props} token={this.state.token} setCurrentUser={this.login} currentUser={this.state.user}/>} />
+              <Route path="/users/:id/FriendProfile" component={props => <FriendProfile {...props} token={this.state.token} currentUser={this.state.user}/>} />
               {/* <Route path="/users/index" component={props => <AllProfile {...props} token={this.state.token} currentUser={this.state.user}/>} /> */}
               <Route path="/images" component={props => <Images {...props} token={this.state.token} currentUser={this.state.user}/>} />
               <Route path="/" render={(props) => <Home {...props} setUser={this.setCurrentUser} />} />
