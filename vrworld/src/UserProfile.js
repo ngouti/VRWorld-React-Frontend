@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './userprofile.css'
-import { Card, Button, CardImg, CardTitle, CardText, CardColumns,
-    CardSubtitle, CardBody } from 'reactstrap';
-import { Jumbotron, Container } from 'reactstrap';
-
+import PicturesContainer from './PicturesContainer'
 
 export default class UserProfile extends Component {
 
@@ -17,6 +14,21 @@ export default class UserProfile extends Component {
     }
 
     componentDidMount(){
+        fetch(`http://localhost:3000/images`, {
+            'method': 'GET',
+            'headers': {
+              'Authorization': `Bearer ${this.props.token}`
+            }
+          })
+       
+        .then(res => res.json())
+        .then(res => this.setState({
+            images: res
+        }))
+        .then(this.profilePicFetch)
+    }
+
+    resetState = () => {
         fetch(`http://localhost:3000/images`, {
             'method': 'GET',
             'headers': {
@@ -65,7 +77,7 @@ export default class UserProfile extends Component {
                 }
             )
         })
-        // .then(this.componentDidMount)
+        .then(this.resetState)
         
     }
 
@@ -79,17 +91,16 @@ export default class UserProfile extends Component {
             
             }
             )
-       
-         }
+    }
 
-         editWidget = () => {
-            window.cloudinary.openUploadWidget({ cloud_name: 'emmagouti', upload_preset: 'addimage', sources: [ 'local', 'url', 'image_search', "camera"]}, (error, result) => {
-                if (result.event === "success")
-                this.setState({profile_url: result.info.url}, () => {this.updateImage()})
-                
-                }
-                )
-         }
+    editWidget = () => {
+    window.cloudinary.openUploadWidget({ cloud_name: 'emmagouti', upload_preset: 'addimage', sources: [ 'local', 'url', 'image_search', "camera"]}, (error, result) => {
+        if (result.event === "success")
+        this.setState({profile_url: result.info.url}, () => {this.updateImage()})
+        
+        }
+        )
+    }
 
 
          
@@ -112,6 +123,7 @@ export default class UserProfile extends Component {
         window.location.assign(`http://localhost:8081/index.html`)
     }
 
+
     updateImage = () => {
         console.log(this.state.profile_url)
         fetch(`http://localhost:3000/users/${this.props.currentUser.id}`, {
@@ -133,56 +145,7 @@ export default class UserProfile extends Component {
     //   this.profilePicFetch()
         return (
             <div >
-    <Button onClick={this.editWidget} id="upload_widget" class="cloudinary-button" color="primary">Upload</Button>
-    <Jumbotron fluid>
-        <Container style={{textAlign: "center"}} fluid>
-        <img height="200px" width="200px" src={this.state.profile_url} />
-          <h1  className="display-3">Welcome, {this.props.currentUser.name}.</h1>
-          <p className="lead">Upload your images and view them in VR.</p>
-          <Button onClick={this.uploadWidget} id="upload_widget" class="cloudinary-button" color="primary">Upload</Button> <br/>
-          <br/><Button onClick={this.vrmode} color="primary">VR MODE</Button>
-        </Container>
-      </Jumbotron>
-           {/* <iframe src="http://localhost:8081/index.html" allow=" xr; ar;"></iframe>
-           <iframe src="http://localhost:8081/index.html" allow="gyroscope; accelerometer; ar"></iframe>
-           <iframe src="http://localhost:8081/index.html" allow="gyroscope; accelerometer; xr"></iframe> */}
-          {/* <button onClick={this.vrmode}> VR</button> */}
-
-            {/* <button onClick={this.uploadWidget} id="upload_widget" class="cloudinary-button">Upload Image</button> */}
-            <CardColumns>
-            {this.state.images ? this.state.images.filter(image => image.user_id === this.props.currentUser.id).map(image => (
-                <div className="user">
-<Card>
-{/* <div class="iframe-container">
-              <iframe src="http://localhost:8081/index.html" allowfullscreen ></iframe>
-              </div> */}
-<CardImg top width="100%" src={image.img_url} alt="Card image cap" />
-<CardBody>
-  <CardTitle>Card title</CardTitle>
-  <Button>Button</Button>
-</CardBody>
-</Card>
-</div>
-
-            //      <div className="user">
-            //   <Card>
-            //   <div class="iframe-container">
-            //   <iframe src={image.img_url} allowfullscreen ></iframe>
-            //   </div>
-            //   <CardBody>
-            //     <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-            //     <CardLink href="#">Card Link</CardLink>
-            //     <CardLink href="#">Another Link</CardLink>
-            //   </CardBody>
-            // </Card>
-            //    </div>
-            
-            ))
-            
-            :
-            null}
-           
-           </CardColumns>
+                <PicturesContainer state={this.state} uploadWidget={this.uploadWidget} editWidget={this.editWidget} currentUser={this.props.currentUser} vrmode={this.vrmode}/>
          </div>
         );
     }
