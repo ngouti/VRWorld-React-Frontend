@@ -35,8 +35,6 @@ class Login extends React.Component {
 
       login = e => {
         e.preventDefault();
-        // console.log(e)
-        // debugger
         fetch(`http://localhost:3000/auth` , {
           method: "POST",
           headers: {
@@ -48,12 +46,6 @@ class Login extends React.Component {
           })
         })
           .then(res => res.json())
-          // .then(res => {
-          //   this.props.setUser(res.token, res)
-          //   this.props.history.push(`/users/${res.id}/UserProfile`)
-        
-          //   })
-  
           .then(res => {
             if (res.message === "Wrong username or password") {
               this.setState({ errors: res.message })

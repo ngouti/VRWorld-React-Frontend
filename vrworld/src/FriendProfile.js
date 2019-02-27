@@ -9,13 +9,12 @@ export default class FriendProfile extends Component {
         user: window.location.pathname,
         userObj: [],
         images: [],
-        favorites: [],
-        currentImage: null,
         profile_url: ""
     }
 
     componentDidMount(){
-        fetch(`http://localhost:3000/images`, {
+        this.parseURL()
+        fetch(`http://localhost:3000/users/${this.state.user}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`

@@ -43,7 +43,7 @@ export class SignUp extends React.Component {
  
 
   uploadWidget = () => {
-    window.cloudinary.openUploadWidget({ cloud_name: 'emmagouti', upload_preset: 'addimage', sources: [ 'local', 'url', 'image_search', "camera"]}, (error, result) => {
+    window.cloudinary.openUploadWidget({ cloud_name: 'emmagouti', upload_preset: 'profilepic', sources: [ 'local', 'url', 'image_search', "camera"]}, (error, result) => {
         if (result.event === "success")
         this.setState({profile_url: result.info.url})
         

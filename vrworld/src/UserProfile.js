@@ -13,7 +13,7 @@ export default class UserProfile extends Component {
     }
 
     componentDidMount(){
-        fetch(`http://localhost:3000/images`, {
+        fetch(`http://localhost:3000/users/${this.props.currentUser.id}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -31,7 +31,7 @@ export default class UserProfile extends Component {
    
 
     resetState = () => {
-        fetch(`http://localhost:3000/images`, {
+        fetch(`http://localhost:3000/users/${this.props.currentUser.id}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -74,8 +74,7 @@ export default class UserProfile extends Component {
             },
             body: JSON.stringify(
                 {
-                img_url: this.state.currentImage.url,
-                user_id: this.props.currentUser.id
+                img_url: this.state.currentImage.url
                 }
             )
         })
@@ -96,7 +95,7 @@ export default class UserProfile extends Component {
     }
 
     editWidget = () => {
-    window.cloudinary.openUploadWidget({ cloud_name: 'emmagouti', upload_preset: 'addimage', sources: [ 'local', 'url', 'image_search', "camera"]}, (error, result) => {
+    window.cloudinary.openUploadWidget({ cloud_name: 'emmagouti', upload_preset: 'profilepic', sources: [ 'local', 'url', 'image_search', "camera"]}, (error, result) => {
         if (result.event === "success")
         this.setState({profile_url: result.info.url}, () => {this.updateImage()})
         
@@ -122,7 +121,7 @@ export default class UserProfile extends Component {
     }
     
     vrmode = () => {
-        window.location.assign(`http://localhost:8081/index.html`)
+        window.location.assign(`http://localhost:8081/index.html?user=${this.props.currentUser.id}&token=${this.props.token}`)
     }
 
 
@@ -144,7 +143,7 @@ export default class UserProfile extends Component {
 
 
     render() {
-    console.log("HELLO", this.state.user, this.props.currentUser.id)
+    console.log("HELLO", this.state.images)
         return (
             <div >
                
