@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router'
@@ -12,6 +13,21 @@ import Home from './Home'
 import Images from './Images'
 import Friends from './Friends'
 import FriendProfile from './FriendProfile'
+// import AtvImg from 'react-atv-img';
+// import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router'
+import './styles.css';
+
+
+import ScrollAnim from 'rc-scroll-anim'
+import QueueAnim from 'rc-queue-anim';
+import TweenOne from 'rc-tween-one';
+import Animate from 'rc-animate';
+const ScrollOverPack = ScrollAnim.OverPack;
+
+
+
+
 
 class App extends Component {
 
@@ -44,7 +60,7 @@ class App extends Component {
     e.preventDefault();
     // console.log(e)
     // debugger
-    fetch(`http://localhost:3000/auth` , {
+    fetch(`http://10.185.4.163:3000/auth` , {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -79,6 +95,8 @@ class App extends Component {
     return (
       <div className="App">
 
+
+     
       <Router>
         <React.Fragment>
         <NavBar currentUser={this.state.user} logout={this.logoutUser}/>

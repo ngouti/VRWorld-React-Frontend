@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
-// import './login.css'
+import './login.css'
 import { Alert } from "react-bootstrap";
 
 class Login extends React.Component {
@@ -35,7 +35,7 @@ class Login extends React.Component {
 
       login = e => {
         e.preventDefault();
-        fetch(`http://localhost:3000/auth` , {
+        fetch(`http://10.185.4.163:3000/auth` , {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -79,7 +79,7 @@ class Login extends React.Component {
                 <FormGroup row>
                 <Label for="exampleEmail2" sm={2}>Password</Label>
                 <Col sm={10}>
-                    <Input onChange={this.handleChange} value={this.state.password} name="password" type="text" placeholder="Password" />
+                    <Input onChange={this.handleChange} value={this.state.password} name="password" type="password" placeholder="Password" />
                 </Col>
                 </FormGroup>
                 <Button onClick={this.login}>Submit</Button>

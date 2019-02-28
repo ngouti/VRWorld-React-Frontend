@@ -11,7 +11,7 @@ import './friends.css'
         }
 
         componentDidMount(){
-            fetch(`http://localhost:3000/users`, {
+            fetch(`http://10.185.4.163:3000/users`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -27,7 +27,7 @@ import './friends.css'
         }
 
         addFollower = (friend) => {
-            fetch(`http://localhost:3000/${friend.username}/follow_user`, {
+            fetch(`http://10.185.4.163:3000/${friend.username}/follow_user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ import './friends.css'
         }
 
         getFollowers = () => {
-            fetch(`http://localhost:3000/users/following/${this.props.currentUser.id}`, {
+            fetch(`http://10.185.4.163:3000/users/following/${this.props.currentUser.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ import './friends.css'
         }
 
         removeFollower = (friend) => {
-            fetch(`http://localhost:3000/${friend.username}/unfollow_user`, {
+            fetch(`http://10.185.4.163:3000/${friend.username}/unfollow_user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

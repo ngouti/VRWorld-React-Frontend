@@ -11,7 +11,7 @@ export default class Images extends Component {
     }
 
     componentDidMount = () => {
-        fetch('http://localhost:3000/images', {
+        fetch('http://10.185.4.163:3000/images', {
           'method': 'get',
           'headers': {
             'Authorization': `Bearer ${this.props.token}`
@@ -25,7 +25,7 @@ export default class Images extends Component {
 
   handleClick = (image) => {
     console.log(image)
-    fetch('http://localhost:3000/collections', {
+    fetch('http://10.185.4.163:3000/collections', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

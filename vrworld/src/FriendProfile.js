@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './userprofile.css'
 import PicturesContainer from './PicturesContainer'
 
+let user = null
+
+
 export default class FriendProfile extends Component {
 
     
@@ -12,9 +15,13 @@ export default class FriendProfile extends Component {
         profile_url: ""
     }
 
+    
     componentDidMount(){
-        this.parseURL()
-        fetch(`http://localhost:3000/users/${this.state.user}/images`, {
+        
+       user = this.state.user.split('/')[2]
+       
+
+        fetch(`http://10.185.4.163:3000/users/${user}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -25,22 +32,15 @@ export default class FriendProfile extends Component {
         .then(res => this.setState({
             images: res
         }))
-        .then(this.parseURL)
+        
         .then(this.profilePicFetch)
         
     }
 
-   parseURL = () => {
-       this.setState({
-           user: this.state.user.split('/')[2]
-       })
-   }
-
-    
 
     profilePicFetch = () => {
         console.log()
-        fetch(`http://localhost:3000/users/${this.state.user}`, {
+        fetch(`http://10.185.4.163:3000/users/${user}`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -60,7 +60,7 @@ export default class FriendProfile extends Component {
 
          
     handleClick = () => {
-        fetch('http://localhost:3000/collections',{
+        fetch('http://10.185.4.163:3000/collections',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export default class FriendProfile extends Component {
     }
     
     vrmode = () => {
-        window.location.assign(`http://localhost:8081/index.html`)
+        window.location.assign(`http://10.185.4.163:8081/index.html`)
     }
 
 

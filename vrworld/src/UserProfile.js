@@ -13,7 +13,7 @@ export default class UserProfile extends Component {
     }
 
     componentDidMount(){
-        fetch(`http://localhost:3000/users/${this.props.currentUser.id}/images`, {
+        fetch(`http://10.185.4.163:3000/users/${this.props.currentUser.id}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -31,7 +31,7 @@ export default class UserProfile extends Component {
    
 
     resetState = () => {
-        fetch(`http://localhost:3000/users/${this.props.currentUser.id}/images`, {
+        fetch(`http://10.185.4.163:3000/users/${this.props.currentUser.id}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -46,7 +46,7 @@ export default class UserProfile extends Component {
     }
 
     profilePicFetch = () => {
-        fetch(`http://localhost:3000/users/${this.props.currentUser.id}`, {
+        fetch(`http://10.185.4.163:3000/users/${this.props.currentUser.id}`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -66,7 +66,7 @@ export default class UserProfile extends Component {
     sendImageToBackend = () => {
         // debugger
        if(this.state.currentImage)
-        fetch('http://localhost:3000/images', {
+        fetch('http://10.185.4.163:3000/images', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ export default class UserProfile extends Component {
 
          
     handleClick = () => {
-        fetch('http://localhost:3000/collections',{
+        fetch('http://10.185.4.163:3000/collections',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -121,13 +121,13 @@ export default class UserProfile extends Component {
     }
     
     vrmode = () => {
-        window.location.assign(`http://localhost:8081/index.html?user=${this.props.currentUser.id}&token=${this.props.token}`)
+        window.location.assign(`http://10.185.4.163:8081/index.html?user=${this.props.currentUser.id}&token=${this.props.token}`)
     }
 
 
     updateImage = () => {
         console.log(this.state.profile_url)
-        fetch(`http://localhost:3000/users/${this.props.currentUser.id}`, {
+        fetch(`http://10.185.4.163:3000/users/${this.props.currentUser.id}`, {
             'method': 'PATCH',
             'headers': {
                 'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ export default class UserProfile extends Component {
 
 
     render() {
-    console.log("HELLO", this.state.images)
+    // console.log(location.host)
         return (
             <div >
                
