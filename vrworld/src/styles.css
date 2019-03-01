@@ -20,7 +20,7 @@ html {
   .pack-page {
     width: 100%;
     height: 1000px;
-    background-color: #eaeaea;
+    background-color: white;
   }
   .fade-enter,
   .fade-leave,
@@ -75,46 +75,9 @@ html {
       opacity: 0;
     }
   }
-  .logo {
-    float: left;
-    height: 58px;
-    font-size: 26px;
-    line-height: 56px;
-    padding-left: 200px;
-  }
-  .nav {
-    position: fixed;
-    background: #0098CE;
-    color: #fff;
-    width: 100%;
-    height: 58px;
-    z-index: 9999;
-    top: 0;
-  }
-  .nav .nav-wap {
-    float: right;
-    padding-right: 200px;
-  }
-  .nav .nav-list {
-    width: 100px;
-    height: 100%;
-    float: left;
-    line-height: 58px;
-    text-align: center;
-    cursor: pointer;
-    transition: background .45s;
-  }
-  .nav .nav-bar {
-    width: 100px;
-    position: absolute;
-    top: 58px;
-    left: 0;
-    height: 2px;
-    background: #fff;
-    transition: left .3s;
-  }
+  
   .page0 {
-    margin: 0 auto;
+    margin: 0px auto;
     width: 100%;
     text-align: center;
     overflow: hidden;
@@ -126,7 +89,7 @@ html {
   .home-title {
     position: relative;
     /*top: 50%;*/
-    margin-top: -115px;
+    margin-top: 160px;
   }
   .tween-one {
     width: 100%;

@@ -4,6 +4,7 @@ import { Jumbotron, Button } from 'reactstrap';
 const Home = (props) => {
   return (
     <div>
+      
       <Jumbotron>
         <h1 style={{textAlign: "center"}} className="display-3">Welcome to VR World</h1>
         <p style={{textAlign: "center"}} className="lead">Browse 360 photos with the Google Cardboard VR!</p>

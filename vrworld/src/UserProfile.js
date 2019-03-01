@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import './userprofile.css'
 import PicturesContainer from './PicturesContainer'
+import ScrollAnim from 'rc-scroll-anim'
+import QueueAnim from 'rc-queue-anim';
+import TweenOne from 'rc-tween-one';
+import Animate from 'rc-animate';
+const ScrollParallax = ScrollAnim.Parallax;
+const ScrollElement = ScrollAnim.Element;
+
 
 export default class UserProfile extends Component {
 
@@ -9,11 +16,13 @@ export default class UserProfile extends Component {
         images: [],
         favorites: [],
         currentImage: null,
-        profile_url: ""
+        profile_url: "",
+        css: { backgroundColor: '#174270', height: 920 },
+      cssNoPosition: true,
     }
 
     componentDidMount(){
-        fetch(`http://10.185.4.163:3000/users/${this.props.currentUser.id}/images`, {
+        fetch(`http://192.168.1.70:3000/users/${this.props.currentUser.id}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -28,10 +37,29 @@ export default class UserProfile extends Component {
         
     }
 
-   
+    onComplete = (e) => {
+        console.log(e);
+      };
+    
+      setCss = (e) => {
+        const css = this.state.css;
+        console.log(e);
+        if (this.state.cssNoPosition) {
+          css.position = 'fixed';
+          css.top = 0;
+        } else {
+          css.position = '';
+          css.top = '';
+        }
+        this.setState({
+          css,
+          cssNoPosition: !this.state.cssNoPosition,
+        });
+      };
+    
 
     resetState = () => {
-        fetch(`http://10.185.4.163:3000/users/${this.props.currentUser.id}/images`, {
+        fetch(`http://192.168.1.70:3000/users/${this.props.currentUser.id}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -46,7 +74,7 @@ export default class UserProfile extends Component {
     }
 
     profilePicFetch = () => {
-        fetch(`http://10.185.4.163:3000/users/${this.props.currentUser.id}`, {
+        fetch(`http://192.168.1.70:3000/users/${this.props.currentUser.id}`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -66,7 +94,7 @@ export default class UserProfile extends Component {
     sendImageToBackend = () => {
         // debugger
        if(this.state.currentImage)
-        fetch('http://10.185.4.163:3000/images', {
+        fetch('http://192.168.1.70:3000/images', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,7 +134,7 @@ export default class UserProfile extends Component {
 
          
     handleClick = () => {
-        fetch('http://10.185.4.163:3000/collections',{
+        fetch('http://192.168.1.70:3000/collections',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -121,13 +149,13 @@ export default class UserProfile extends Component {
     }
     
     vrmode = () => {
-        window.location.assign(`http://10.185.4.163:8081/index.html?user=${this.props.currentUser.id}&token=${this.props.token}`)
+        window.location.assign(`http://192.168.1.70:8081/index.html?user=${this.props.currentUser.id}&token=${this.props.token}`)
     }
 
 
     updateImage = () => {
         console.log(this.state.profile_url)
-        fetch(`http://10.185.4.163:3000/users/${this.props.currentUser.id}`, {
+        fetch(`http://192.168.1.70:3000/users/${this.props.currentUser.id}`, {
             'method': 'PATCH',
             'headers': {
                 'Content-Type': 'application/json',
@@ -141,13 +169,27 @@ export default class UserProfile extends Component {
         
     }
 
+    delete = (id) => {
+        fetch(`http://192.168.1.70:3000/collections/${id}`, {
+            'method': 'DELETE',
+            'headers': {
+                'Authorization': `Bearer ${this.props.token}`
+            }
+          })
+          fetch(`http://192.168.1.70:3000/images/${id}`, {
+            'method': 'DELETE',
+            'headers': {
+                'Authorization': `Bearer ${this.props.token}`
+            }
+          })
+          .then(this.resetState)
+    }
 
     render() {
     // console.log(location.host)
         return (
             <div >
-               
-                <PicturesContainer state={this.state} uploadWidget={this.uploadWidget} editWidget={this.editWidget} currentUser={this.props.currentUser} vrmode={this.vrmode} active={true}/>
+                <PicturesContainer state={this.state} uploadWidget={this.uploadWidget} editWidget={this.editWidget} currentUser={this.props.currentUser} vrmode={this.vrmode} active={true} delete={this.delete}/>
                
          </div>
         );
