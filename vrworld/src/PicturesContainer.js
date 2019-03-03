@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import './userprofile.css'
 import { Card, Button, CardImg, CardTitle, CardText, CardColumns,
     CardSubtitle, CardBody } from 'reactstrap';
-import { Jumbotron, Container } from 'reactstrap';
+import { Row, Col, Jumbotron, Container } from 'reactstrap';
 import './pictures.css'
+
+
+
 
 export default class PicturesContainer extends Component {
 
@@ -15,11 +18,15 @@ export default class PicturesContainer extends Component {
     console.log(this.props.state)  
         return (
             <div>
+               <div className="user">
                 {this.props.active === true?
-                
-                <div> 
-                    <Jumbotron fluid>
-                    <Container style={{textAlign: "center"}} fluid>
+                <div > 
+                <div className="main">
+                    <div className="big">
+                    <Jumbotron style={{ backgroundColor: "darkgrey"}}  fluid>
+                    <Container style={{ textAlign: "center"}} fluid>
+        
+        
                     <div className="card3">
                     <Card body style={{textAlign: "center"}}>
                           
@@ -37,79 +44,89 @@ export default class PicturesContainer extends Component {
                         </Container>
                         </Jumbotron>
                         
-                            <CardColumns>
-                            {this.props.state.images ? this.props.state.images.map(image => (
-                                <div className="user">
-                        {/* <Card> */}
-                        <iframe  src={image.img_url} allow="gyroscope; accelerometer; ar" allowfullscreen></iframe>
-                        {/* <iframe src={image.img_url}></iframe> */}
-                        {/* <CardImg top width="100px" height="100px" src={image.img_url} alt="Card image cap" /> */}
-                        <CardBody style={{textAlign: "center"}}>
-                        {/* <CardTitle>{image.title}</CardTitle> */}
-                        <Button onClick={e => this.props.delete(image.id)}>Delete</Button>
-                        </CardBody>
-                        {/* </Card> */}
-            </div>
-            
-                        
-                        ))
-                        
+                    </div>
+                        <div className="small">
+                        <Row>
+                   {this.props.state.images ? this.props.state.images.map(image => (
+                      
+                      <Col sm="6">
+                          <Card body style={{textAlign: "center"}}>
+                          
+                          <CardImg top height="70%" width="70%" src={image.img_url} alt="Card image cap" />
+                          {/* <CardTitle>Uploaded By: {this.props.currentUser.name}</CardTitle> */}
+                          <br/><Button onClick={e => this.props.delete(image.id)}>Delete</Button>
+                          </Card>
+                      </Col>
+                     ))
+                   
+                  
+         
                         :
                         null}
+                        </Row> 
                        
-                       </CardColumns>
                      </div>
-
+                     </div>
+                     </div>
+                     
                      :
 
-                     <div> 
-                            <Jumbotron fluid>
-                                <Container style={{textAlign: "center"}} fluid>
-                                <img height="200px" width="200px" src={this.props.state.profile_url} />
-                        
-                                <h1  className="display-3">{this.props.currentUser.name}</h1>
-                                <p className="lead">Check out my photos!</p>
-                            
-                                <br/><Button onClick={this.props.vrmode} color="dark">VR MODE</Button>
-                                </Container>
-                            </Jumbotron>
-                           
-                             <CardColumns>
-                             {this.props.state.images ? this.props.state.images.map(image => (
-                                 <div className="user">
-                            <Card>
-                            
-                            <CardImg top width="100%" src={image.img_url} alt="Card image cap" />
-                            <CardBody>
-                            <CardTitle>Card title</CardTitle>
-                            <Button>Button</Button>
-                            </CardBody>
-                            </Card>
-                            </div>
+                     <div > 
+                     <div className="main">
+                         <div className="big">
+                         <Jumbotron style={{ backgroundColor: "darkgrey"}}  fluid>
+                         <Container style={{ textAlign: "center"}} fluid>
+             
+             
+                         <div className="card3">
+                         <Card body style={{textAlign: "center"}}>
+                               
+                               <CardImg top height="40%" width="40%" src={this.props.state.profile_url} alt="Card image cap" />
                  
+     
+                               </Card>
+                               </div>
+                           <h1  className="display-3">{this.props.currentUser.name}</h1>
+                          
+                        
+                           <br/><Button onClick={this.props.vrmode} color="dark">VR MODE</Button>
+                             </Container>
+                             </Jumbotron>
                              
-                             ))
-                             
+                         </div>
+                             <div className="small">
+                             <Row>
+                        {this.props.state.images ? this.props.state.images.map(image => (
+                           
+                           <Col sm="6">
+                               <Card body style={{textAlign: "center"}}>
+                               
+                               <CardImg top height="70%" width="70%" src={image.img_url} alt="Card image cap" />
+                               <CardTitle>Uploaded By: {this.props.currentUser.name}</CardTitle>
+                               <Button onClick={e => this.props.delete(image.id)}>Delete</Button>
+                               </Card>
+                           </Col>
+                          ))
+                        
+                       
+              
                              :
                              null}
+                             </Row> 
                             
-                            </CardColumns>
                           </div>
-     
-            
-            }
+                          </div>
+                          </div>
+                        }
+            </div>
+                        </div>
         
 
             
-            
+    
 
-
-
-
-         </div> 
-
+        )
         
-        );
     }
-}
+    }
 

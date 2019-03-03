@@ -23,8 +23,8 @@ import ScrollAnim from 'rc-scroll-anim'
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Animate from 'rc-animate';
-const ScrollOverPack = ScrollAnim.OverPack;
-
+const ScrollParallax = ScrollAnim.Parallax;
+const ScrollElement = ScrollAnim.Element;
 
 
 
@@ -35,9 +35,16 @@ class App extends Component {
   state = {
     token: localStorage.getItem('token'),
     user: JSON.parse(localStorage.getItem('user')) || null,
-    message: ""
+    message: "",
+    reset: false
+    
   }
 
+  reset = () => {
+    this.setState({
+      reset: !this.state.reset
+    })
+  }
   
 
 
@@ -60,7 +67,7 @@ class App extends Component {
     e.preventDefault();
     // console.log(e)
     // debugger
-    fetch(`http://192.168.1.70:3000/auth` , {
+    fetch(`http://10.185.3.128:3000/auth` , {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -99,27 +106,34 @@ class App extends Component {
      
       <Router>
         <React.Fragment>
+        
+         
         <NavBar currentUser={this.state.user} logout={this.logoutUser}/>
         
+       
+      
+    
         <Switch>
         
               <Route path="/login" render={(props) => <Login {...props} setUser={this.setCurrentUser} />} />
+              {/* <Route path="/home" render={(props) => <LoginPop {...props} setUser={this.setCurrentUser} />} /> */}
              
               <Route path="/signup" render={ props => <SignUp {...props} onSignUp={this.setCurrentUser} />}/>
+
               <Route path="/friends" render={ props => <Friends {...props} token={this.state.token} currentUser={this.state.user} />}/>
 
-              <Route path="/users/:id/UserProfile" component={props => <UserProfile {...props} token={this.state.token} setCurrentUser={this.login} currentUser={this.state.user}/>} />
+              <Route path="/users/:id/UserProfile" component={props => <UserProfile {...props} token={this.state.token} setCurrentUser={this.login} reset={this.reset} currentUser={this.state.user}/>} />
               <Route path="/users/:id/FriendProfile" component={props => <FriendProfile {...props} token={this.state.token} currentUser={this.state.user}/>} />
               {/* <Route path="/users/index" component={props => <AllProfile {...props} token={this.state.token} currentUser={this.state.user}/>} /> */}
-              <Route path="/images" component={props => <Images {...props} token={this.state.token} currentUser={this.state.user}/>} />
-              <Route path="/" render={(props) => <Home {...props} setUser={this.setCurrentUser} />} />
+              <Route path="/images" component={props => <Images {...props} reset={this.state.reset} token={this.state.token} currentUser={this.state.user}/>} />
         
-
+              <Route path="/" render={(props) => <Home props={props} token={this.state.token} setUser={this.setCurrentUser} currentUser={this.state.user}/>} />
           
         </Switch>
+        
         </React.Fragment>
       </Router>
-       
+     
       </div>
     );
   }

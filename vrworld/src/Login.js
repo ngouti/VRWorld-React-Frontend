@@ -35,7 +35,7 @@ class Login extends React.Component {
 
       login = e => {
         e.preventDefault();
-        fetch(`http://192.168.1.70:3000/auth` , {
+        fetch(`http://10.185.3.128:3000/auth` , {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -69,7 +69,7 @@ class Login extends React.Component {
             
 
           <h1>Login</h1>
-              <Form>
+              <Form onSubmit={this.login}>
                 <FormGroup row>
                 <Label for="exampleEmail" sm={2} size="lg">UserName</Label>
                 <Col sm={10}>
@@ -82,7 +82,7 @@ class Login extends React.Component {
                     <Input onChange={this.handleChange} value={this.state.password} name="password" type="password" placeholder="Password" />
                 </Col>
                 </FormGroup>
-                <Button onClick={this.login}>Submit</Button>
+                <Button type="submit" >Submit</Button>
             </Form>
 
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-// import './signup.css'
+import './login.css'
 
 export class SignUp extends React.Component {
   state =  { 
@@ -8,7 +8,7 @@ export class SignUp extends React.Component {
         email: "", 
         password: "" , 
         name: "" ,
-        profile_url: ""
+        profile_url: "https://res.cloudinary.com/emmagouti/image/upload/v1551589375/newimages/profile-placeholder.png"
     }
     
 
@@ -25,7 +25,7 @@ export class SignUp extends React.Component {
 
     // debugger
     // console.log(this.state)
-    fetch(`http://10.185.6.215:3000/users`, {
+    fetch(`http://10.185.3.128:3000/users`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export class SignUp extends React.Component {
   })
       .then(resp => resp.json())
       .then(() => {
-        this.routeTo('/login')
+        this.routeTo('/')
          })
 
   }
@@ -43,11 +43,12 @@ export class SignUp extends React.Component {
  
 
   uploadWidget = () => {
-    window.cloudinary.openUploadWidget({ cloud_name: 'emmagouti', upload_preset: 'profilepic', sources: [ 'local', 'url', 'image_search', "camera"]}, (error, result) => {
+    window.cloudinary.openUploadWidget({ cloud_name: 'emmagouti', upload_preset: 'profilepic', sources: [ 'local', 'url', 'image_search', "camera", 'facebook', 'instagram', 'dropbox']}, (error, result) => {
         if (result.event === "success")
         this.setState({profile_url: result.info.url})
         
         }
+
         )
    
      }
@@ -57,8 +58,9 @@ export class SignUp extends React.Component {
   }
 
   render() {
+    
     return (
-      <div className="ui raised very padded text container segment signup">
+      <div className="login">
   
   <Form onSubmit={e => {this.handleSubmit(e)}}>
         <FormGroup row >
@@ -94,7 +96,9 @@ export class SignUp extends React.Component {
             </FormText>
           </Col>
         </FormGroup>
+        
         <Button onSubmit={e => {this.handleSubmit(e)}}>Submit</Button>
+       
         </Form>
 
 

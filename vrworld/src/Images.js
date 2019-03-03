@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 import { Route, Link} from 'react-router-dom'
 import NavBar from './NavBar'
-
+import { Card, Button, CardImg, CardTitle, CardText, CardColumns,
+    CardSubtitle, CardBody } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
+import './images.css'
 
+// const active = this.props.reset;
 export default class Images extends Component {
 
     state = {
-        images: [] 
+        images: [],
+        collections: [],
+        users: []
     }
 
     componentDidMount = () => {
-        fetch('http://10.185.7.95:3000/images', {
+        fetch('http://10.185.3.128:3000/images', {
           'method': 'get',
           'headers': {
             'Authorization': `Bearer ${this.props.token}`
@@ -21,11 +26,15 @@ export default class Images extends Component {
         .then(res => res.json())
         .then( json => this.setState({
           images: json
-    }))}
+    }))
+       
+    }
+
+    
 
   handleClick = (image) => {
     console.log(image)
-    fetch('http://10.185.7.95:3000/collections', {
+    fetch('http://10.185.3.128:3000/collections', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -41,23 +50,22 @@ export default class Images extends Component {
   }
 
     render() {
-      console.log(this.state.images)
+       console.log(this.state.images) 
         return (
-        <div>
-            
-            
-            <Container>
-            <Row>
-            {this.state.images.map((image) => (
-                 <Col xs="6"> 
-                 <img src={image.img_url} width="100px" height="100px"/>
-                 <button onClick={() => this.handleClick(image.id)}>Fave</button>
-                 </Col>
-                 ))}
-                 </Row>
-        
-        </Container>
-            
+        <div className="flexcontainer">
+             <Row>
+             {this.state.images.map((image) => (
+                
+                      <Col sm="6">
+                          <Card body style={{textAlign: "center"}}>
+                          <CardImg top height="70%" width="70%" src={image.img_url} alt="Card image cap" />
+                        
+                          <br/><Button onClick={() => this.handleClick(image.id)}>Fave</Button>
+                          </Card>
+                      </Col>
+                     ))}
+                        </Row> 
+    
         
           
         </div>

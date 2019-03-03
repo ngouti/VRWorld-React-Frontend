@@ -11,7 +11,7 @@ import './friends.css'
         }
 
         componentDidMount(){
-            fetch(`http://192.168.1.70:3000/users`, {
+            fetch(`http://10.185.3.128:3000/users`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -27,7 +27,7 @@ import './friends.css'
         }
 
         addFollower = (friend) => {
-            fetch(`http://192.168.1.70:3000/${friend.username}/follow_user`, {
+            fetch(`http://10.185.3.128:3000/${friend.username}/follow_user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ import './friends.css'
         }
 
         getFollowers = () => {
-            fetch(`http://10.185.6.215:3000/users/following/${this.props.currentUser.id}`, {
+            fetch(`http://10.185.3.128:3000/users/following/${this.props.currentUser.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ import './friends.css'
         }
 
         removeFollower = (friend) => {
-            fetch(`http://10.185.6.215:3000/${friend.username}/unfollow_user`, {
+            fetch(`http://10.185.3.128:3000/${friend.username}/unfollow_user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,33 +87,42 @@ import './friends.css'
         }
         
         render(){
+            console.log(this.props.currentUser.id)
             console.log(this.state.follows)
+            
             return (
-                <div >
-                    
+                
+                <div>
+                   <h3 style={{textAlign: "center"}}>Following</h3>
+                   {this.state.follows.length < 1 
+                   ?
+                    <h3>You're not following anyone!</h3> 
+                    :
                 <div className="card">
-                   <h2 style={{textAlign: "center"}}>Following</h2>
                    <Row>
-                   {this.state.follows.map(follow => (
+                   {this.state.follows.filter(follow => follow.follower_id === this.props.currentUser.id).map(follow => (
                       
                       <Col sm="6">
                           <Card body style={{textAlign: "center"}}>
                           
-                          <CardImg top height="70%" width="70%" src={follow.following.profile_url} alt="Card image cap" />
-                          <CardTitle>{follow.following.name}</CardTitle>
+                          <CardImg top width="100%" src={follow.following.profile_url} alt="Card image cap" />
+                          <span>{follow.following.name}</span>
                           <Button onClick={(e) => this.removeFollower(follow.following)}>Unfollow</Button>
                           </Card>
                       </Col>
                      
                    ))}
-                   </Row> <br/>
-                   </div>
+                   </Row> 
+                   </div> }
+                   <h3 style={{textAlign: "center"}}>All Users</h3>
+
                    <div className="card2">
-                    <h2 style={{textAlign: "center"}}>All Users</h2>
                     <Row>
                     {this.state.users.map(user => (
-                        
-                        <Col sm="6">
+                        user.id === this.props.currentUser.id ?
+                        null
+                        :
+                            <Col sm="6">
                             <Card style={{textAlign: "center"}} body >
                             <CardImg top width="100%" src={user.profile_url} alt="Card image cap" />
                             <CardTitle onClick={() => this.goToFriendsPage(user)}>
@@ -123,8 +132,10 @@ import './friends.css'
                             </Card>
                         </Col>
                         
+                        
+                       
                     ))}
-                </Row>
+                </Row><br/>
                 </div>
                 
                 </div>

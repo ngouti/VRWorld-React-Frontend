@@ -9,8 +9,6 @@ class LoginPop extends React.Component {
         super(props);
         this.state = {
           modal: false,
-          token: localStorage.getItem('token'),
-        user: JSON.parse(localStorage.getItem('user')) || null,
           username: '',
           password: '',
           errors: null
@@ -27,21 +25,13 @@ class LoginPop extends React.Component {
 
     
     
-      setCurrentUser = (token, user) => {
-        localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify(user))
-        this.setState ({ 
-          token: token, 
-          user: user
-        }) 
-      }
-
-    routeTo = url => {
+      routeTo = url => {
         this.props.history.push(url)
       }
 
       handleChange = (e) => {
         this.setState({
+          errors: '',
             [e.target.name]:e.target.value
         })
     }
@@ -59,11 +49,8 @@ class LoginPop extends React.Component {
     }
 
       login = e => {
-          
         e.preventDefault();
-        // console.log(e)
-        // debugger
-        fetch(`http://localhost:3000/auth` , {
+        fetch(`http://10.185.3.128:3000/auth` , {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -74,50 +61,49 @@ class LoginPop extends React.Component {
           })
         })
           .then(res => res.json())
-          // .then(res => {
-          //   this.props.setUser(res.token, res)
-          //   this.props.history.push(`/users/${res.id}/UserProfile`)
-        
-          //   })
-  
           .then(res => {
             if (res.message === "Wrong username or password") {
               this.setState({ errors: res.message })
             } else {
-              this.setCurrentUser(res.token, res)
-              this.props.history.push(`/users/${res.id}/UserProfile`);
+              this.props.setUser(res.token, res)
+              this.props.props.history.push(`/users/${res.id}/UserProfile`);
+            
             }
-      });
+      })
+      
       }
     
     
       render() {
-        console.log(this.props)
 
 
         return (
-      <div>
-        <Button color="danger" onClick={this.toggle}>Login</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Please Login!</ModalHeader>
+          <div>
+          
+        
+     
+        <Button color="danger" onClick={this.toggle}>Go To Your Photos</Button>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} centered>
+          <ModalHeader style={{textAlign: "center"}} toggle={this.toggle}>Welcome Back to VR World</ModalHeader>
           <ModalBody>
-          <Form>
+          <Form onSubmit={this.login}>
                 <FormGroup row>
                 <Label for="exampleEmail" sm={2}>Username</Label>
-                <Col sm={7}>
-                    <Input onChange={this.handleChange} value={this.state.username} name="username" type="text" placeholder="ex: emma" bsSize="lg" />
+                <Col  sm={7}>
+                    <Input onChange={this.handleChange} value={this.state.username} name="username" type="text" bsSize="lg" />
                 </Col>
                 </FormGroup>
                 <FormGroup row>
                 <Label for="exampleEmail2" sm={2}>Password</Label>
-                <Col sm={7}>
+                <Col  sm={7}>
                     <Input onChange={this.handleChange} value={this.state.password} name="password" type="password" placeholder="" />
                 </Col>
                 </FormGroup>
                 {/* <Button onClick={this.login}>Submit</Button> */}
             </Form>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter >
+          {this.errorBox()}
             <Button color="primary" onClick={this.login}>Submit</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
