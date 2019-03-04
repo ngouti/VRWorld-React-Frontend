@@ -67,7 +67,7 @@ class App extends Component {
     e.preventDefault();
     // console.log(e)
     // debugger
-    fetch(`http://10.185.3.128:3000/auth` , {
+    fetch(`http://10.185.3.253:3000/auth` , {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

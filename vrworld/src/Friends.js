@@ -12,7 +12,7 @@ import './friends.css'
         }
 
         componentDidMount(){
-            fetch(`http://192.168.1.70:3000/users`, {
+            fetch(`http://10.185.3.253:3000/users`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -28,7 +28,7 @@ import './friends.css'
         }
 
         addFollower = (friend) => {
-            fetch(`http://192.168.1.70:3000/${friend.username}/follow_user`, {
+            fetch(`http://10.185.3.253:3000/${friend.username}/follow_user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ import './friends.css'
         }
 
         getFollowers = () => {
-            fetch(`http://192.168.1.70:3000/users/following/${this.props.currentUser.id}`, {
+            fetch(`http://10.185.3.253:3000/users/following/${this.props.currentUser.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ import './friends.css'
         }
 
         removeFollower = (friend) => {
-            fetch(`http://192.168.1.70:3000/${friend.username}/unfollow_user`, {
+            fetch(`http://10.185.3.253:3000/${friend.username}/unfollow_user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,16 +100,20 @@ import './friends.css'
             
             return (
                 <div>
-                
-            <InputGroup >
-                <Input onChange={(e) => this.filter(e)} placeholder="Search Users..."/>
-                <InputGroupAddon addonType="append">
-                <Button color="dark" size="sm">Search</Button>
-                </InputGroupAddon>
-              </InputGroup>
-                    {/* <input onChange={(e) => this.props.filter(e)}type="text" placeholder="Search.."></input> */}
-
-                
+               <div>
+               {/* <form class="example" action="action_page.php" >
+                <input type="text" placeholder="Search.." name="search"/>
+                <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            */}
+  <InputGroup>
+      <Input className="search" onChange={(e) => this.filter(e)} placeholder="Search Users..."/>
+      <InputGroupAddon addonType="append">
+      <Button color="dark" size="xs">Search</Button>
+      </InputGroupAddon>
+    </InputGroup>
+          
+                    </div>
                 <div>
                    <h3 style={{textAlign: "center"}}>Following</h3>
                    {this.state.follows.length < 1 
@@ -165,3 +169,4 @@ import './friends.css'
         
       };
       
+    

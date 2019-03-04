@@ -32,3 +32,37 @@ span:hover {
     text-shadow: 1px 1px 1px rgb(190, 190, 186);
 }
 
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+.search {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+
+
+/* Clear floats */
+.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* 
+input[type=text] {
+  width: 330px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+} */
+
+/* When the input field gets focus, change its width to 100% */
+/* input[type=text]:focus {
+  width: 100%;
+} */

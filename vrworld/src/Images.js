@@ -16,7 +16,7 @@ export default class Images extends Component {
     }
 
     componentDidMount = () => {
-        fetch('http://192.168.1.70:3000/images', {
+        fetch('http://10.185.3.253:3000/images', {
           'method': 'get',
           'headers': {
             'Authorization': `Bearer ${this.props.token}`
@@ -34,7 +34,7 @@ export default class Images extends Component {
 
   handleClick = (image) => {
     console.log(image)
-    fetch('http://192.168.1.70:3000/collections', {
+    fetch('http://10.185.3.253:3000/collections', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export default class Images extends Component {
                           <Card body style={{textAlign: "center"}}>
                           <CardImg top height="70%" width="70%" src={image.img_url} alt="Card image cap" />
                         
-                          <br/><Button onClick={() => this.handleClick(image.id)}>Fave</Button>
+                          <br/><Button onClick={() => this.handleClick(image.id)}>Add to my collection</Button>
                           </Card>
                       </Col>
                      ))}
