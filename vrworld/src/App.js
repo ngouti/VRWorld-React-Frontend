@@ -35,8 +35,8 @@ class App extends Component {
   state = {
     token: localStorage.getItem('token'),
     user: JSON.parse(localStorage.getItem('user')) || null,
-    message: "",
-    reset: false
+    message: ""
+
     
   }
 
@@ -94,6 +94,9 @@ class App extends Component {
         }
   });
   }
+
+  
+
 
   
 

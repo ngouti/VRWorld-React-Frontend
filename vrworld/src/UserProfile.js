@@ -25,7 +25,7 @@ export default class UserProfile extends Component {
     }
 
     componentDidMount(){
-        fetch(`http://10.185.3.128:3000/users/${this.props.currentUser.id}/images`, {
+        fetch(`http://192.168.1.70:3000/users/${this.props.currentUser.id}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -62,7 +62,7 @@ export default class UserProfile extends Component {
     
 
     resetState = () => {
-        fetch(`http://10.185.3.128:3000/users/${this.props.currentUser.id}/images`, {
+        fetch(`http://192.168.1.70:3000/users/${this.props.currentUser.id}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -77,7 +77,7 @@ export default class UserProfile extends Component {
     }
 
     profilePicFetch = () => {
-        fetch(`http://10.185.3.128:3000/users/${this.props.currentUser.id}`, {
+        fetch(`http://192.168.1.70:3000/users/${this.props.currentUser.id}`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -97,7 +97,7 @@ export default class UserProfile extends Component {
     sendImageToBackend = () => {
         // debugger
        if(this.state.currentImage)
-        fetch('http://10.185.3.128:3000/images', {
+        fetch('http://192.168.1.70:3000/images', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ export default class UserProfile extends Component {
 
          
     handleClick = () => {
-        fetch('http://10.185.3.128:3000/collections',{
+        fetch('http://192.168.1.70:3000/collections',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -154,13 +154,13 @@ export default class UserProfile extends Component {
     
   
     vrmode = () => {
-        window.location.assign(`http://10.185.3.128:8081/index.html?user=${this.props.currentUser.id}&token=${this.props.token}`)
+        window.location.assign(`http://192.168.1.70:8081/index.html?user=${this.props.currentUser.id}&token=${this.props.token}`)
     }
 
 
     updateImage = () => {
         console.log(this.state.profile_url)
-        fetch(`http://10.185.3.128:3000/users/${this.props.currentUser.id}`, {
+        fetch(`http://192.168.1.70:3000/users/${this.props.currentUser.id}`, {
             'method': 'PATCH',
             'headers': {
                 'Content-Type': 'application/json',
@@ -176,14 +176,14 @@ export default class UserProfile extends Component {
 
     delete = (id) => {
         
-        fetch(`http://10.185.3.128:3000/collections/${id}`, {
+        fetch(`http://192.168.1.70:3000/collections/${id}`, {
             'method': 'DELETE',
             'headers': {
                 'Authorization': `Bearer ${this.props.token}`
             }
           })
           .then(
-              fetch(`http://10.185.3.128:3000/images/${id}`, {
+              fetch(`http://192.168.1.70:3000/images/${id}`, {
             'method': 'DELETE',
             'headers': {
                 'Authorization': `Bearer ${this.props.token}`
@@ -197,7 +197,7 @@ export default class UserProfile extends Component {
     // console.log(location.host)
         return (
             <div >
-              
+             
                 <PicturesContainer state={this.state} uploadWidget={this.uploadWidget} editWidget={this.editWidget} currentUser={this.props.currentUser} vrmode={this.vrmode} active={true} delete={this.delete}/>
          
          

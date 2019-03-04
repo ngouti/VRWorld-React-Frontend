@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, CardImg, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Card, Button, CardImg, CardTitle, CardText, Row, Col, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
 import './friends.css'    
 
 
@@ -7,11 +7,12 @@ import './friends.css'
 
         state = {
             users: [],
-            follows: []
+            follows: [],
+            search: ''
         }
 
         componentDidMount(){
-            fetch(`http://10.185.3.128:3000/users`, {
+            fetch(`http://192.168.1.70:3000/users`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -27,7 +28,7 @@ import './friends.css'
         }
 
         addFollower = (friend) => {
-            fetch(`http://10.185.3.128:3000/${friend.username}/follow_user`, {
+            fetch(`http://192.168.1.70:3000/${friend.username}/follow_user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ import './friends.css'
         }
 
         getFollowers = () => {
-            fetch(`http://10.185.3.128:3000/users/following/${this.props.currentUser.id}`, {
+            fetch(`http://192.168.1.70:3000/users/following/${this.props.currentUser.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ import './friends.css'
         }
 
         removeFollower = (friend) => {
-            fetch(`http://10.185.3.128:3000/${friend.username}/unfollow_user`, {
+            fetch(`http://192.168.1.70:3000/${friend.username}/unfollow_user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,22 +86,40 @@ import './friends.css'
             })
             .then(this.getFollowers)
         }
+
+        filter = (e) => {
+            e.preventDefault()
+            this.setState({
+              search: e.target.value
+            })
+          }
         
         render(){
             console.log(this.props.currentUser.id)
-            console.log(this.state.follows)
+            console.log(this.state.search)
             
             return (
+                <div>
+                
+            <InputGroup >
+                <Input onChange={(e) => this.filter(e)} placeholder="Search Users..."/>
+                <InputGroupAddon addonType="append">
+                <Button color="dark" size="sm">Search</Button>
+                </InputGroupAddon>
+              </InputGroup>
+                    {/* <input onChange={(e) => this.props.filter(e)}type="text" placeholder="Search.."></input> */}
+
                 
                 <div>
                    <h3 style={{textAlign: "center"}}>Following</h3>
                    {this.state.follows.length < 1 
                    ?
-                    <h3>You're not following anyone!</h3> 
+                    <h3 textAlign="center">You're not following anyone!</h3> 
                     :
                 <div className="card">
                    <Row>
-                   {this.state.follows.filter(follow => follow.follower_id === this.props.currentUser.id).map(follow => (
+                   {/* items={this.state.items.filter( i => i.title.toLowerCase().includes(this.state.search))} */}
+                   {this.state.follows.filter(follow => follow.follower_id === this.props.currentUser.id && follow.following.name.toLowerCase().includes(this.state.search)).map(follow => (
                       
                       <Col sm="6">
                           <Card body style={{textAlign: "center"}}>
@@ -118,7 +137,7 @@ import './friends.css'
 
                    <div className="card2">
                     <Row>
-                    {this.state.users.map(user => (
+                    {this.state.users.filter(user => user.name.toLowerCase().includes(this.state.search)).map(user => (
                         user.id === this.props.currentUser.id ?
                         null
                         :
@@ -138,6 +157,7 @@ import './friends.css'
                 </Row><br/>
                 </div>
                 
+                </div>
                 </div>
               );
 

@@ -16,7 +16,7 @@ export default class Images extends Component {
     }
 
     componentDidMount = () => {
-        fetch('http://10.185.3.128:3000/images', {
+        fetch('http://192.168.1.70:3000/images', {
           'method': 'get',
           'headers': {
             'Authorization': `Bearer ${this.props.token}`
@@ -34,7 +34,7 @@ export default class Images extends Component {
 
   handleClick = (image) => {
     console.log(image)
-    fetch('http://10.185.3.128:3000/collections', {
+    fetch('http://192.168.1.70:3000/collections', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -52,6 +52,9 @@ export default class Images extends Component {
     render() {
        console.log(this.state.images) 
         return (
+
+            
+
         <div className="flexcontainer">
              <Row>
              {this.state.images.map((image) => (
@@ -69,6 +72,7 @@ export default class Images extends Component {
         
           
         </div>
+        
         )
     }
 }

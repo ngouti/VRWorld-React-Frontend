@@ -25,7 +25,7 @@ export class SignUp extends React.Component {
 
     // debugger
     // console.log(this.state)
-    fetch(`http://10.185.3.128:3000/users`, {
+    fetch(`http://192.168.1.70:3000/users`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

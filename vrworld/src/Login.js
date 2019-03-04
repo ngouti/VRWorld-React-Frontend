@@ -35,7 +35,7 @@ class Login extends React.Component {
 
       login = e => {
         e.preventDefault();
-        fetch(`http://10.185.3.128:3000/auth` , {
+        fetch(`http://192.168.1.70:3000/auth` , {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
