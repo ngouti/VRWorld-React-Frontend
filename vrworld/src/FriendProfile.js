@@ -21,7 +21,7 @@ export default class FriendProfile extends Component {
        user = this.state.user.split('/')[2]
        
 
-        fetch(`http://10.185.1.196:3000/users/${user}/images`, {
+        fetch(`http://${this.props.local}:3000/users/${user}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`

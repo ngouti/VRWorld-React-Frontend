@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button } from 'reactstrap';
+import { Link } from 'react-router-dom'
 
 import ScrollAnim from 'rc-scroll-anim'
 import QueueAnim from 'rc-queue-anim';
@@ -37,7 +37,10 @@ class Home extends React.Component {
     });
   };
 
+ 
+
   render() {
+    console.log(this.props.currentUser)
     return (
    
       
@@ -49,7 +52,9 @@ class Home extends React.Component {
           </div>
         </QueueAnim><br/>
         <div>
+          {this.props.currentUser ? <div><Link style={{color: 'black'}} to={`/users/${this.props.currentUser.id}/UserProfile`}>Take me back to my photos!</Link></div>  :
         <LoginPop props={this.props.props} local={this.props.local}setUser={this.props.setUser} />
+      }
         </div>
       </div>
      
