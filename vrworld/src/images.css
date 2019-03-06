@@ -1,8 +1,8 @@
 .flexcontainer {
     padding-top: 5%;
-    padding-right: 5%;
+    padding-right: 3%;
     padding-bottom: 5%;
-    padding-left: 5%;
+    padding-left: 3%;
  }
       
 
@@ -24,3 +24,9 @@
     font-size: 17px;
   }
   
+  .body{
+    padding-top: 5%;
+    padding-right: 3%;
+    padding-bottom: 5%;
+    padding-left: 3%;
+  }

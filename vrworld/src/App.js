@@ -27,7 +27,7 @@ const ScrollParallax = ScrollAnim.Parallax;
 const ScrollElement = ScrollAnim.Element;
 
 
-const local = "10.185.1.196"
+const local = "10.185.2.120"
 
 class App extends Component {
 

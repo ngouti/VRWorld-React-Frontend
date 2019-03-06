@@ -21,6 +21,8 @@ export default class UserProfile extends Component {
         favorites: [],
         currentImage: null,
         profile_url: "",
+        // test1: [],
+        // test2: []
        
     }
 
@@ -37,8 +39,23 @@ export default class UserProfile extends Component {
             images: res
         }))
        .then(this.profilePicFetch)
-        
+        // .then(this.test)
     }
+
+    // test = () => {
+    //     fetch(`http://${this.props.local}:3000/imagesandcomment`, {
+    //         'method': 'GET',
+    //         'headers': {
+    //           'Authorization': `Bearer ${this.props.token}`
+    //         }
+    //       })
+       
+    //     .then(res => res.json())
+    //     .then(res => this.setState({
+    //         test1: res.images,
+    //         test2: res.comments
+    //     }))
+    // }
 
     onComplete = (e) => {
         console.log(e);
@@ -194,7 +211,7 @@ export default class UserProfile extends Component {
     }
 
     render() {
-    console.log(this.props.local)
+    // console.log("FUCKYEAH",this.state.test1, this.state.test2)
         return (
             <div >
              

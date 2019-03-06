@@ -30,8 +30,8 @@ export default class NavBar extends React.Component {
     console.log(this.props.currentUser)
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand style={{color: "black"}} href="/">VR WORLD</NavbarBrand>
+        <Navbar color="dark" light expand="md">
+          <NavbarBrand style={{color: "white"}} href="/">VR WORLD</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
               {
@@ -40,24 +40,24 @@ export default class NavBar extends React.Component {
                   <Nav className="ml-auto" navbar>
                   <NavItem>
                       <NavLink>
-                        <Link style={{color: 'black'}} to="/images"> All Images </Link> 
+                        <Link style={{color: 'white'}} to="/images"> All Images </Link> 
                       </NavLink>
                     </NavItem>
                  <NavItem>
                       <NavLink>
-                        <Link style={{color: 'black'}} to="/friends"> My Friends </Link> 
+                        <Link style={{color: 'white'}} to="/friends"> My Friends </Link> 
                       </NavLink>
                     </NavItem>
 
                     <NavItem>
                       <NavLink>
-                        <Link style={{color: 'black'}} to={`/users/${this.props.currentUser.id}/UserProfile`}>{this.props.currentUser.name}</Link> 
+                        <Link style={{color: 'white'}} to={`/users/${this.props.currentUser.id}/UserProfile`}>{this.props.currentUser.name}</Link> 
                       </NavLink>
                     </NavItem>
                     <div onClick={ this.props.logout }>
                     <NavItem >
                       <NavLink>
-                        <Link style={{color: 'black'}} to='/' > Logout </Link> 
+                        <Link style={{color: 'white'}} to='/' > Logout </Link> 
                       </NavLink>
                     </NavItem>
                     </div>
@@ -70,14 +70,14 @@ export default class NavBar extends React.Component {
                     <NavItem >
                       {/* <LoginPop /> */}
                       <NavLink>
-                        <Link style={{color: 'black'}} to="/login"> Login </Link> 
+                        <Link style={{color: 'white'}} to="/login"> Login </Link> 
                       </NavLink>
                     </NavItem>
                     </div>
                     </NavItem>
                     <NavItem>
                       <NavLink>
-                        <Link style={{color: 'black'}} to="/signup"> Sign Up </Link> 
+                        <Link style={{color: 'white'}} to="/signup"> Sign Up </Link> 
                       </NavLink>
                     </NavItem>
                   </Nav>

@@ -102,7 +102,34 @@ export default class Images extends Component {
         .then(this.fetchComments)
   }
 
-  
+  delete = (id) => {
+    fetch(`http://${this.props.local}:3000/comments/${id}`, {
+      method: 'delete',
+      headers: {
+          'Authorization': `Bearer ${this.props.token}`
+      }
+    })
+    .then(this.fetchComments)
+  }
+
+  edit = (comment) => {
+    fetch(`http://${this.props.local}:3000/comments/${comment.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.props.token}`
+      },
+      body: JSON.stringify(
+          {
+          image_id: comment.image_id,
+          user_id: comment.user_id,
+          content: this.state.comment
+          }
+      )
+        })
+    .then(this.fetchComments)
+  }
+
     render() {
         let name;
     //    console.log(this.state.images) 
@@ -132,8 +159,9 @@ console.log(this.props.currentUser.name)
                             </CardTitle>
                         : null}
                           <br/><Button onClick={() => this.handleClick(image.id)}>Add to my collection</Button>
-                          </Card>
-                          <Comment users={this.state.users} comments={this.state.comments.filter(comment => comment.image_id === image.id)} />
+                          <CardBody className="body" style={{width: "100%", textAlign: "left"}}>
+                          <div>
+                          <Comment users={this.state.users} getComment={this.getComment} edit={this.edit}currentUser={this.props.currentUser} delete={this.delete} comments={this.state.comments.filter(comment => comment.image_id === image.id)} />
                           <Form onSubmit={() => this.submitComment(image.id)}>
                           <FormGroup>
                       <Label for="exampleText">Drop a Comment!</Label>
@@ -141,6 +169,10 @@ console.log(this.props.currentUser.name)
                     </FormGroup>
                     <Button>Submit!</Button>
                     </Form>
+                    </div>
+                          </CardBody>
+                          </Card>
+                          
                       </Col>
                      ))}
                         </Row> 
