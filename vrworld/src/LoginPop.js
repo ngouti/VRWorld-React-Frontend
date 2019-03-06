@@ -50,7 +50,7 @@ class LoginPop extends React.Component {
 
       login = e => {
         e.preventDefault();
-        fetch(`http://10.185.3.253:3000/auth` , {
+        fetch(`http://${this.props.local}:3000/auth` , {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

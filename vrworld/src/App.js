@@ -27,7 +27,7 @@ const ScrollParallax = ScrollAnim.Parallax;
 const ScrollElement = ScrollAnim.Element;
 
 
-
+const local = "10.185.1.196"
 
 class App extends Component {
 
@@ -67,7 +67,7 @@ class App extends Component {
     e.preventDefault();
     // console.log(e)
     // debugger
-    fetch(`http://10.185.3.253:3000/auth` , {
+    fetch(`http://${local}:3000/auth` , {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -118,19 +118,19 @@ class App extends Component {
     
         <Switch>
         
-              <Route path="/login" render={(props) => <Login {...props} setUser={this.setCurrentUser} />} />
+              <Route path="/login" render={(props) => <Login {...props} local={local} setUser={this.setCurrentUser} />} />
               {/* <Route path="/home" render={(props) => <LoginPop {...props} setUser={this.setCurrentUser} />} /> */}
              
-              <Route path="/signup" render={ props => <SignUp {...props} onSignUp={this.setCurrentUser} />}/>
+              <Route path="/signup" render={ props => <SignUp {...props} local={local} onSignUp={this.setCurrentUser} />}/>
 
-              <Route path="/friends" render={ props => <Friends {...props} token={this.state.token} currentUser={this.state.user} />}/>
+              <Route path="/friends" render={ props => <Friends {...props} local={local} token={this.state.token} currentUser={this.state.user} />}/>
 
-              <Route path="/users/:id/UserProfile" component={props => <UserProfile {...props} token={this.state.token} setCurrentUser={this.login} reset={this.reset} currentUser={this.state.user}/>} />
-              <Route path="/users/:id/FriendProfile" component={props => <FriendProfile {...props} token={this.state.token} currentUser={this.state.user}/>} />
+              <Route path="/users/:id/UserProfile" component={props => <UserProfile local={local} {...props} token={this.state.token} setCurrentUser={this.login} reset={this.reset} currentUser={this.state.user}/>} />
+              <Route path="/users/:id/FriendProfile" component={props => <FriendProfile {...props} local={local} token={this.state.token} currentUser={this.state.user}/>} />
               {/* <Route path="/users/index" component={props => <AllProfile {...props} token={this.state.token} currentUser={this.state.user}/>} /> */}
-              <Route path="/images" component={props => <Images {...props} reset={this.state.reset} token={this.state.token} currentUser={this.state.user}/>} />
+              <Route path="/images" component={props => <Images {...props} local={local} reset={this.state.reset} token={this.state.token} currentUser={this.state.user}/>} />
         
-              <Route path="/" render={(props) => <Home props={props} token={this.state.token} setUser={this.setCurrentUser} currentUser={this.state.user}/>} />
+              <Route path="/" render={(props) => <Home props={props} local={local} token={this.state.token} setUser={this.setCurrentUser} currentUser={this.state.user}/>} />
           
         </Switch>
         

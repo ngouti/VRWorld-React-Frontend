@@ -49,7 +49,7 @@ class Home extends React.Component {
           </div>
         </QueueAnim><br/>
         <div>
-        <LoginPop props={this.props.props} setUser={this.props.setUser} />
+        <LoginPop props={this.props.props} local={this.props.local}setUser={this.props.setUser} />
         </div>
       </div>
      

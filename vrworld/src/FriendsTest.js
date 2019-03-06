@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, Button, CardImg, CardTitle, CardText, Row, Col, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
 import './friends.css'
-  
+import AllUsers from './AllUsers'    
 
-
+let userFilter
     export default class Friends extends React.Component  {
 
         state = {
@@ -13,7 +13,7 @@ import './friends.css'
         }
 
         componentDidMount(){
-            fetch(`http://10.185.1.196:3000/users`, {
+            fetch(`http://10.185.7.49:3000/users`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -29,7 +29,7 @@ import './friends.css'
         }
 
         addFollower = (friend) => {
-            fetch(`http://10.185.1.196:3000/${friend.username}/follow_user`, {
+            fetch(`http://10.185.7.49:3000/${friend.username}/follow_user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ import './friends.css'
         }
 
         getFollowers = () => {
-            fetch(`http://10.185.1.196:3000/users/following/${this.props.currentUser.id}`, {
+            fetch(`http://10.185.7.49:3000/users/following/${this.props.currentUser.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,11 +71,11 @@ import './friends.css'
 
         goToFriendsPage = (user) => {
             console.log(user)
-            this.props.history.push(`/users/${user}/FriendProfile`);
+            this.props.history.push(`/users/${user.id}/FriendProfile`);
         }
 
         removeFollower = (friend) => {
-            fetch(`http://10.185.1.196:3000/${friend.username}/unfollow_user`, {
+            fetch(`http://10.185.7.49:3000/${friend.username}/unfollow_user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +99,11 @@ import './friends.css'
           }
         
         render(){
-        
+           console.log("USER", this.state.follows.length > 0 ? this.state.users.filter(user=> this.state.follows.includes(user) ): "nope")
+           console.log("Parsed", this.state.follows)
+            console.log("Follow",this.state.follows)
+            
+
 
 
             return (
@@ -134,7 +138,7 @@ import './friends.css'
                           <Card body style={{textAlign: "center"}}>
                           
                           <CardImg top width="100%" src={follow.following.profile_url} alt="Card image cap" />
-                          <CardTitle onClick={() => this.goToFriendsPage(follow.following.id)}>
+                          <CardTitle onClick={() => this.goToFriendsPage(follow.following.following_id)}>
                           <span>{follow.following.name}</span>
                             
                             </CardTitle>
@@ -149,7 +153,7 @@ import './friends.css'
 
                    <div className="card2">
                     <Row>
-                    {this.state.users.filter(user => user.name.toLowerCase().includes(this.state.search)).map(user => (
+                    {this.state.users.filter(user => user.name.toLowerCase().includes(this.state.search)).filter(user => !this.state.follows.includes(user)).map(user => (
                         user.id === this.props.currentUser.id 
 
                         ?

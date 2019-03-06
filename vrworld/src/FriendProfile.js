@@ -21,7 +21,7 @@ export default class FriendProfile extends Component {
        user = this.state.user.split('/')[2]
        
 
-        fetch(`http://10.185.3.253:3000/users/${user}/images`, {
+        fetch(`http://10.185.1.196:3000/users/${user}/images`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -40,7 +40,7 @@ export default class FriendProfile extends Component {
 
     profilePicFetch = () => {
         console.log()
-        fetch(`http://10.185.3.253:3000/users/${user}`, {
+        fetch(`http://${this.props.local}:3000/users/${user}`, {
             'method': 'GET',
             'headers': {
               'Authorization': `Bearer ${this.props.token}`
@@ -60,7 +60,7 @@ export default class FriendProfile extends Component {
 
          
     handleClick = () => {
-        fetch('http://10.185.3.253:3000/collections',{
+        fetch(`http://${this.props.local}:3000/collections`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export default class FriendProfile extends Component {
     }
     
     vrmode = () => {
-        window.location.assign(`http://10.185.3.253:8081/index.html`)
+        window.location.assign(`http://${this.props.local}:8081/index.html?user=${user}&token=${this.props.token}`)
     }
 
 
