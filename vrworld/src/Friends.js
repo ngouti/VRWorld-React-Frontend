@@ -71,7 +71,7 @@ import './friends.css'
 
         goToFriendsPage = (user) => {
             console.log(user)
-            this.props.history.push(`/users/${user}/FriendProfile`);
+            this.props.history.push(`/users/${user.id}/FriendProfile`);
         }
 
         removeFollower = (friend) => {

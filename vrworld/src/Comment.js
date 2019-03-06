@@ -48,7 +48,7 @@ var regex2 = /[0-9][0-9]:[0-9][0-9]/
                                     <div>
                                     <button onClick={() => this.props.delete(comment.id)}>Delete</button>
                                     <div>
-                                    <Button color="dark" onClick={this.toggle}>Edit</Button>
+                                    <Button color="light" onClick={this.toggle}>Edit</Button>
                                     <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                                       <ModalHeader toggle={this.toggle}>Edit Your Comment</ModalHeader>
                                       <ModalBody>
