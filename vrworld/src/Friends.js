@@ -74,6 +74,11 @@ import './friends.css'
             this.props.history.push(`/users/${user.id}/FriendProfile`);
         }
 
+        goToFriendsPage2 = (user) => {
+            console.log(user)
+            this.props.history.push(`/users/${user}/FriendProfile`);
+        }
+
         removeFollower = (friend) => {
             fetch(`http://${this.props.local}:3000/${friend.username}/unfollow_user`, {
                 method: 'POST',
@@ -128,13 +133,13 @@ import './friends.css'
                 <div className="card">
                    <Row>
                    {/* items={this.state.items.filter( i => i.title.toLowerCase().includes(this.state.search))} */}
-                   {this.state.follows.filter(follow => follow.follower_id === this.props.currentUser.id && follow.following.name.toLowerCase().includes(this.state.search)).map(follow => (
+                   {this.state.follows.filter(follow => follow.follower_id === this.props.currentUser.id && follow.following.name.toLowerCase().includes(this.state.search.toLowerCase())).map(follow => (
                       
                       <Col sm="6">
                           <Card body style={{textAlign: "center"}}>
                           
                           <CardImg top width="100%" src={follow.following.profile_url} alt="Card image cap" />
-                          <CardTitle onClick={() => this.goToFriendsPage(follow.following.id)}>
+                          <CardTitle onClick={() => this.goToFriendsPage2(follow.following.id)}>
                           <span>{follow.following.name}</span>
                             
                             </CardTitle>
@@ -149,7 +154,7 @@ import './friends.css'
 
                    <div className="card2">
                     <Row>
-                    {this.state.users.filter(user => user.name.toLowerCase().includes(this.state.search)).map(user => (
+                    {this.state.users.filter(user => user.name.toLowerCase().includes(this.state.search.toLowerCase())).map(user => (
                         user.id === this.props.currentUser.id 
 
                         ?
