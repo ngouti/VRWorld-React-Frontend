@@ -17,4 +17,3 @@ https://github.com/ngouti/VRWorld-Backend
 
 
 
-![screenshot_arundo3](https://user-images.githubusercontent.com/8285000/56928936-ea033800-6a9d-11e9-8d4d-b43c5114d1e9.JPG)
